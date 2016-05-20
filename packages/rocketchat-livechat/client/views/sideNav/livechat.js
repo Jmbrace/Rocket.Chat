@@ -18,7 +18,32 @@ Template.livechat.helpers({
 	rooms() {
 		var query = {
 			t: 'l',
-			open: true
+			ls: {$exists: true}
+			// answered: true
+		};
+
+		var user = Meteor.user();
+
+		if (user && user.settings && user.settings.preferences && user.settings.preferences.unreadRoomsMode) {
+			query.alert = {
+				$ne: true
+			};
+		}
+
+		console.log(ChatSubscription.find().fetch());
+
+		return ChatSubscription.find(query, {
+			sort: {
+				't': 1,
+				'name': 1
+			}
+		});
+	},
+	openRooms() {
+		var query = {
+			t: 'l',
+			ls: {$exists: false}
+			// 'answered': false
 		};
 
 		var user = Meteor.user();
