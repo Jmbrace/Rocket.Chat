@@ -1,0 +1,17 @@
+<template name="livechatRoutingOptions">
+	<form id="routing-options-form">
+		<div class="rocket-form">
+			<fieldset>
+				<legend>{{_ "Options for Routing Clients"}}</legend>
+				<div class="options">
+					{{#each conditions}}
+						{{> livechatTriggerCondition}}
+					{{/each}}
+					{{#unless conditions}}
+						{{> livechatTriggerCondition}}
+					{{/unless}}
+				</div>
+			</fieldset>
+		</div>
+	</form>
+</template>

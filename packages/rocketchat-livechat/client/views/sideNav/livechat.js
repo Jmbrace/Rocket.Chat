@@ -16,13 +16,15 @@ Template.livechat.helpers({
 		}
 	},
 	rooms() {
+		var user = Meteor.user();
+
 		var query = {
 			t: 'l',
-			ls: {$exists: true}
-			// answered: true
+			ls: {$exists: true},
+			// aassignment: user._id
 		};
 
-		var user = Meteor.user();
+		
 
 		if (user && user.settings && user.settings.preferences && user.settings.preferences.unreadRoomsMode) {
 			query.alert = {
@@ -30,22 +32,14 @@ Template.livechat.helpers({
 			};
 		}
 
-		console.log(ChatSubscription.find().fetch());
-
-		return ChatSubscription.find(query, {
+		return ChatSubscription.find({}, {
 			sort: {
 				't': 1,
 				'name': 1
 			}
 		});
 	},
-	openRooms() {
-		var query = {
-			t: 'l',
-			ls: {$exists: false}
-			// 'answered': false
-		};
-
+	inquiries() {
 		var user = Meteor.user();
 
 		if (user && user.settings && user.settings.preferences && user.settings.preferences.unreadRoomsMode) {
@@ -54,10 +48,9 @@ Template.livechat.helpers({
 			};
 		}
 
-		return ChatSubscription.find(query, {
+		return LivechatInquiry.find({}, {
 			sort: {
-				't': 1,
-				'name': 1
+				'ts' : 1
 			}
 		});
 	},
@@ -87,3 +80,9 @@ Template.livechat.events({
 		});
 	}
 });
+
+Template.livechat.onCreated(function() {
+  this.subscribe('livechat:inquiry');
+});
+
+

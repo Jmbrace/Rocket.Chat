@@ -9,11 +9,11 @@
 		</h3>
 
 		<h3 class="{{isActive}}">
-		{{_ "Open Chats"}}
+		{{_ "Incoming Chats"}}
 		</h3>
 		<ul>
-			{{#each openRooms}}
-				{{> chatRoomItem }}
+			{{#each inquiries}}
+				{{> livechatInquiryItem }}
 			{{else}}
 				<p class="empty">{{_ "No_livechats" }}</p>
 			{{/each}}

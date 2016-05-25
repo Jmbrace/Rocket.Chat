@@ -51,8 +51,11 @@ Package.onUse(function(api) {
 	api.addFiles('client/collections/LivechatDepartmentAgents.js', 'client');
 	api.addFiles('client/collections/LivechatPageVisited.js', 'client');
 	api.addFiles('client/collections/LivechatTrigger.js', 'client');
+	api.addFiles('client/collections/LivechatInquiry.js', 'client');
 
 	api.addFiles('client/methods/changeLivechatStatus.js', 'client');
+
+
 
 	// client views
 	api.addFiles('client/views/app/livechatAppearance.html', 'client');
@@ -74,6 +77,9 @@ Package.onUse(function(api) {
 	api.addFiles('client/views/app/livechatTriggers.js', 'client');
 	api.addFiles('client/views/app/livechatUsers.html', 'client');
 	api.addFiles('client/views/app/livechatUsers.js', 'client');
+	api.addFiles('client/views/app/livechatRoutingOptions.html', 'client');
+	api.addFiles('client/views/app/livechatRoutingOptions.js', 'client');
+
 
 	api.addFiles('client/views/app/tabbar/externalSearch.html', 'client');
 	api.addFiles('client/views/app/tabbar/externalSearch.js', 'client');
@@ -119,6 +125,9 @@ Package.onUse(function(api) {
 	api.addFiles('server/methods/sendMessageLivechat.js', 'server');
 	api.addFiles('server/methods/sendOfflineMessage.js', 'server');
 	api.addFiles('server/methods/setCustomField.js', 'server');
+	api.addFiles('server/methods/takeInquiry.js', 'server');
+
+
 
 	// models
 	api.addFiles('server/models/Users.js', 'server');
@@ -130,6 +139,13 @@ Package.onUse(function(api) {
 	api.addFiles('server/models/LivechatPageVisited.js', 'server');
 	api.addFiles('server/models/LivechatTrigger.js', 'server');
 	api.addFiles('server/models/indexes.js', 'server');
+
+	api.addFiles('server/models/LivechatInquiry.js', 'server')
+
+
+	api.addFiles('client/models/subscriptions.js', 'client');
+
+
 
 	// server lib
 	api.addFiles('server/lib/Livechat.js', 'server');
@@ -147,6 +163,9 @@ Package.onUse(function(api) {
 	api.addFiles('server/publications/visitorHistory.js', 'server');
 	api.addFiles('server/publications/visitorInfo.js', 'server');
 	api.addFiles('server/publications/visitorPageVisited.js', 'server');
+	
+	api.addFiles('server/publications/livechatInquiries.js', 'server');
+
 
 	// api
 	api.addFiles('server/api.js', 'server');

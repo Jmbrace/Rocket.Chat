@@ -32,36 +32,49 @@ RocketChat.Livechat = {
 
 			const roomCode = RocketChat.models.Rooms.getNextLivechatRoomCode();
 
-			var agentUsernames = [];
+			console.log(message);
 
-			agents.forEach(agent => {
-				var subscriptionData = {
-					rid: message.rid,
-					name: guest.name || guest.username,
-					alert: true,
-					open: true,
-					unread: 1,
-					code: roomCode,
-					u: {
-						_id: agent._id,
-						username: agent.username
-					},
-					t: 'l',
-					desktopNotifications: 'all',
-					mobilePushNotifications: 'all',
-					emailNotifications: 'all',
-					answered: 'false',
-					assignedTo: 'none'
-				};
+			// add as inquiry 
+			var inquiry = {
+				rid: message.rid,
+				message: message.msg,
+				name: guest.name || guest.username,
+				ts: new Date(),
+				code: roomCode
+			}
 
-				console.log(subscriptionData);
+			console.log("this");
 
-				RocketChat.models.Subscriptions.insert(subscriptionData);
 
-				agentUsernames.push(agent.username);
-			});
+			RocketChat.models.LivechatInquiry.insert(inquiry);
 
-			
+			//console.log(RocketChat.models.Subscriptions.find().fetch());
+
+			// var agentUsernames = [];
+
+			// agents.forEach(agent => {
+			// 	var subscriptionData = {
+			// 		rid: message.rid,
+			// 		name: guest.name || guest.username,
+			// 		alert: true,
+			// 		open: true,
+			// 		unread: 1,
+			// 		code: roomCode,
+			// 		u: {
+			// 			_id: agent._id,
+			// 			username: agent.username
+			// 		},
+			// 		t: 'l',
+			// 		desktopNotifications: 'all',
+			// 		mobilePushNotifications: 'all',
+			// 		emailNotifications: 'all',
+			// 		answered: 'false',
+			// 		// assignment: 'view'
+			// 	};
+
+			// 	RocketChat.models.Subscriptions.insert(subscriptionData);
+			// 	agentUsernames.push(agent.username);
+			// });
 
 			room = _.extend({
 				_id: message.rid,
@@ -69,12 +82,12 @@ RocketChat.Livechat = {
 				lm: new Date(),
 				code: roomCode,
 				label: guest.name || guest.username,
-				usernames: agentUsernames,
+				usernames: [guest.username],
 				t: 'l',
 				ts: new Date(),
 				v: {
 					_id: guest._id,
-					token: message.token
+					token: message.token,
 				},
 				open: true,
 				answered: true,
@@ -247,6 +260,9 @@ RocketChat.Livechat = {
 
 		RocketChat.models.Subscriptions.hideByRoomIdAndUserId(room._id, user._id);
 
+
+		console.log("test");
+		
 		return true;
 	},
 
