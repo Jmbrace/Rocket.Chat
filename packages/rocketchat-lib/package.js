@@ -70,8 +70,6 @@ Package.onUse(function(api) {
 	api.addFiles('server/models/Uploads.coffee', 'server');
 	api.addFiles('server/models/Users.coffee', 'server');
 
-	api.addFiles('server/models/livechat_chat.coffee', 'server');
-
 
 	// SERVER PUBLICATIONS
 	api.addFiles('server/publications/settings.coffee', 'server');
