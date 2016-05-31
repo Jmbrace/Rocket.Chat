@@ -143,7 +143,7 @@ Package.onUse(function(api) {
 	api.addFiles('server/models/LivechatInquiry.js', 'server')
 
 
-	api.addFiles('client/models/subscriptions.js', 'client');
+	// api.addFiles('client/models/subscriptions.js', 'client');
 
 
 
