@@ -9,6 +9,9 @@ Template.livechatWindow.helpers({
 	popoutActive() {
 		return FlowRouter.getQueryParam('mode') === 'popout';
 	},
+	soundActive() {
+		return Session.get('sound');
+	},
 	showRegisterForm() {
 		if (Session.get('triggered') || Meteor.userId()) {
 			return false;
@@ -33,16 +36,21 @@ Template.livechatWindow.events({
 	'click .popout'(event) {
 		event.stopPropagation();
 		parentCall('openPopout');
+	},
+	'click .sound'(event) {
+		event.stopPropagation();
+		Session.set({sound: !Session.get('sound')});
 	}
 });
 
 Template.livechatWindow.onCreated(function() {
 	this.online = new ReactiveVar(null);
-
 	this.title = new ReactiveVar('Rocket.Chat');
 	this.color = new ReactiveVar('#C1272D');
 	this.registrationForm = new ReactiveVar(true);
 	this.offlineMessage = new ReactiveVar('');
+
+	Session.set({sound: true});
 
 	// get all needed live chat info for the user
 	Meteor.call('livechat:getInitialData', visitor.getToken(), (err, result) => {

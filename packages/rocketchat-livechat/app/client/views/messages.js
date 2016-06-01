@@ -1,6 +1,6 @@
 Template.messages.helpers({
-	messages: function() {
-		return ChatMessage.find({
+	messages: function() {	
+		var messages = ChatMessage.find({
 			rid: visitor.getRoom(),
 			t: {
 				'$ne': 't'
@@ -10,6 +10,16 @@ Template.messages.helpers({
 				ts: 1
 			}
 		});
+
+		if (Session.equals('sound', true) &&  messages.fetch().length > Template.instance().messagesCount.get()) {
+			var newestMessage = messages.fetch()[messages.fetch().length-1];
+			if (newestMessage.u._id != Meteor.user()._id) {
+				$('#chatAudioNotification')[0].play();
+			}
+		}
+		Template.instance().messagesCount.set(messages.fetch().length);
+
+		return messages;
 	}
 });
 
@@ -41,6 +51,10 @@ Template.messages.events({
 Template.messages.onCreated(function() {
 	var self;
 	self = this;
+
+	Session.set({messagesCount: 0});
+
+	self.messagesCount = new ReactiveVar(0);
 
 	self.atBottom = true;
 

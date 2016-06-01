@@ -42,11 +42,11 @@ Template.livechat.helpers({
 	inquiries() {
 		var user = Meteor.user();
 
-		if (user && user.settings && user.settings.preferences && user.settings.preferences.unreadRoomsMode) {
-			query.alert = {
-				$ne: true
-			};
-		}
+		// if (user && user.settings && user.settings.preferences && user.settings.preferences.unreadRoomsMode) {
+		// 	query.alert = {
+		// 		$ne: true
+		// 	};
+		// }
 
 		return LivechatInquiry.find({}, {
 			sort: {
